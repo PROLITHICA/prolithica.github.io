@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prolithica Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base and Utility Styles */
+        body {
+            font-family: 'Roboto Sans', sans-serif;
+            background-color: #e0e0e0;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #c4c4c4;
+            border-radius: 5px;
+            border: 2px solid #e0e0e0;
+        }
+
+        /* Soft-UI Components */
+        .soft-ui {
+            background-color: #e9e9e9;
+            box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.6), 5px 5px 10px rgba(0, 0, 0, 0.1), inset 2px 2px 4px rgba(255, 255, 255, 0.3), inset -2px -2px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+        }
+        .soft-ui-btn {
+            background-color: #e9e9e9;
+            box-shadow: -3px -3px 6px rgba(255, 255, 255, 0.6), 3px 3px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 2rem;
+            transition: all 0.3s ease;
+        }
+        .soft-ui-btn:hover {
+            box-shadow: -1px -1px 3px rgba(255, 255, 255, 0.6), 1px 1px 3px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+        }
+        .soft-ui-btn:active {
+            box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.6), inset 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .soft-ui-input {
+            background-color: #e9e9e9;
+            border: none;
+            outline: none;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+            border-radius: 1rem;
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+        }
+        .soft-ui-input:focus {
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.6), 0 0 5px #00FFFF;
+        }
+        textarea.soft-ui-input {
+            resize: vertical;
+        }
+
+        /* Accent Styles */
+        .accent-btn {
+            background: linear-gradient(145deg, #4a4a4a, #2c2c2c);
+            box-shadow: -5px -5px 10px rgba(74, 74, 74, 0.2), 5px 5px 10px rgba(44, 44, 44, 0.4);
+            color: white;
+            font-weight: 500;
+        }
+        .accent-btn:active {
+            background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
+        }
+        
+        /* Glassy Elements */
+        .glassy-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            color: #333;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            z-index: 200;
+        }
+        .glassy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .glassy-btn:active {
+            transform: translateY(0);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        }
+        .pill {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            padding: .6rem 1rem;
+            border-radius: 9999px;
+            font-size: .8rem;
+            color: #2b2b2b;
+            font-weight: 600;
+            animation: drift 9s ease-in-out infinite;
+        }
+        .pill[data-delay="1"] { animation-delay: 1.2s; }
+        .pill[data-delay="2"] { animation-delay: 2.4s; }
+        .pill[data-delay="3"] { animation-delay: .6s; }
+
+        /* Form & Review Styles */
+        .validation-message {
+            color: #E53E3E;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            transition: opacity 0.3s ease;
+        }
+        .validation-message.hidden {
+            opacity: 0;
+        }
+        .soft-ui-summary-item {
+            background-color: #e9e9e9;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .soft-ui-summary-label {
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+        .soft-ui-summary-value {
+            color: #1a1a1a;
+        }
+        
+        /* Animation & Effects */
+        @keyframes moveParticles {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+            100% { transform: translateY(0); }
+        }
+        .particle {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            animation: moveParticles 10s ease-in-out infinite;
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(8px, -10px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes floatY {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Hero & Layout Elements */
+        .brand-vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+        .hero-canvas {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .hero-blob {
+            position: absolute;
+            width: 42rem;
+            height: 42rem;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: .35;
+            pointer-events: none;
+        }
+        .hero-blob--1 {
+            top: -8rem;
+            left: -10rem;
+            background: radial-gradient(circle at 35% 35%, #fff 0%, #ececec 35%, rgba(160, 160, 160, .55) 65%, transparent 70%);
+        }
+        .hero-blob--2 {
+            right: -8rem;
+            bottom: -10rem;
+            background: radial-gradient(circle at 65% 65%, rgba(180, 180, 180, .6) 0%, #ececec 35%, transparent 70%);
+        }
+        .scroll-indicator {
+            animation: floatY 2.2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#e0e0e0] text-[#1a1a1a]">
+
+    <!-- Fixed Glassy Button to Contact Section -->
+    <div class="fixed top-6 right-8 flex items-center justify-end z-50">
+        <a href="#contact" class="glassy-btn">Have an idea?</a>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-[92vh] flex items-center overflow-hidden pt-24">
+            <div aria-hidden="true" class="hero-canvas">
+                <div class="hero-blob hero-blob--1"></div>
+                <div class="hero-blob hero-blob--2"></div>
+            </div>
+            <div class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2 z-10">
+                <div class="brand-vertical text-sm font-semibold text-gray-700 tracking-[0.38em] text-center">
+                    P R O L I T H I C A
+                </div>
+            </div>
+            <div class="container mx-auto grid md:grid-cols-12 gap-10 items-center px-8 w-full">
+                <div class="md:col-span-7">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Innovating Tomorrow’s Solutions Today</h1>
+                    <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-xl">Product engineering, resilient cloud, and research-driven design—shipped with a calm, repeatable playbook.</p>
+                    <div class="flex items-center gap-4">
+                        <a href="#services" class="soft-ui-btn accent-btn px-10 py-3 text-base">Learn More</a>
+                        <a href="#contact" class="soft-ui-btn px-10 py-3 text-base">Talk to us</a>
+                    </div>
+                    <div class="mt-8 flex flex-wrap gap-3 text-sm text-gray-700">
+                        <span class="soft-ui px-4 py-2 rounded-full">99.9% uptime</span>
+                        <span class="soft-ui px-4 py-2 rounded-full">Secure by default</span>
+                        <span class="soft-ui px-4 py-2 rounded-full">2-week releases</span>
+                    </div>
+                </div>
+                <div class="md:col-span-5 relative h-[320px] md:h-[420px]">
+                    <div class="pill absolute top-4 left-6" data-delay="1">AI/ML</div>
+                    <div class="pill absolute top-24 right-6" data-delay="2">Cloud</div>
+                    <div class="pill absolute bottom-16 left-8" data-delay="0">Graph DBs</div>
+                    <div class="pill absolute bottom-4 right-10" data-delay="3">Design Systems</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 px-8 soft-ui mx-4 md:mx-auto max-w-6xl">
+            <div class="container mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center">Our Services</h2>
+                <p class="text-center text-gray-700 max-w-2xl mx-auto mt-4">Product, cloud, data, and design — shipped with a calm, repeatable playbook.</p>
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-6 mt-12 auto-rows-[150px] md:auto-rows-[170px]">
+                    <article class="soft-ui p-6 md:col-span-4 md:row-span-2 group hover:translate-y-[1px] transition">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-3">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 opacity-70">
+                                    <path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                                </svg>
+                                <h3 class="text-2xl font-semibold">Software Engineering</h3>
+                            </div>
+                            <span class="text-sm text-gray-500">Build & ship</span>
+                        </div>
+                        <p class="text-gray-700 mt-3 max-w-md">Web & mobile apps with clean architecture and tests.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">React / Next</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Django / FastAPI</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Postgres</span>
+                        </div>
+                        <a href="#contact" class="soft-ui-btn px-4 py-2 text-sm mt-6 inline-block">Start a project &rarr;</a>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-2 md:row-span-2 group hover:translate-y-[1px] transition">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-3">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5 opacity-70">
+                                    <path d="M6 18h12a3 3 0 0 0 0-6 5 5 0 0 0-9.5-2A4 4 0 0 0 6 18Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                                </svg>
+                                <h3 class="text-2xl font-semibold">Cloud & DevOps</h3>
+                            </div>
+                            <span class="text-sm text-gray-500">Scale</span>
+                        </div>
+                        <p class="text-gray-700 mt-3">Sensible infra with CI/CD and observability.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">AWS / GCP</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Docker / K8s</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Terraform</span>
+                        </div>
+                        <a href="#contact" class="soft-ui-btn px-4 py-2 text-sm mt-6 inline-block">Discuss your stack &rarr;</a>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-2 md:row-span-1 group hover:translate-y-[1px] transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 opacity-70">
+                                <circle cx="6" cy="12" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <circle cx="18" cy="12" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M8 12h2m4 0h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            <h3 class="text-xl font-semibold">Data & AI</h3>
+                        </div>
+                        <p class="text-gray-700">Useful analytics and LLM features that actually ship.</p>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-4 md:row-span-1 group hover:translate-y-[1px] transition">
+                        <div class="flex items-center gap-3 mb-2">
+                            <svg viewBox="0 0 24 24" class="w-5 h-5 opacity-70">
+                                <path d="M4 7h16M8 7v10m8-10v10M4 17h16" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            </svg>
+                            <h3 class="text-xl font-semibold">Research & Design</h3>
+                        </div>
+                        <p class="text-gray-700">Lean discovery, rapid prototypes, crisp UI systems.</p>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-3 md:row-span-1 group hover:translate-y-[1px] transition">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold">Delivery Playbooks</h3>
+                            <span class="text-sm text-gray-500">How we work</span>
+                        </div>
+                        <p class="text-gray-700 mt-2">Opinionated checklists for calm, predictable releases.</p>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-3 md:row-span-1 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-semibold">Have something in mind?</h3>
+                            <p class="text-gray-700 mt-2">We’ll help scope it in one call.</p>
+                        </div>
+                        <a href="#contact" class="soft-ui-btn accent-btn px-5 py-3 text-sm">Talk to us</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-8 soft-ui mx-4 md:mx-auto max-w-6xl mt-12">
+            <div class="container mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center">About Us</h2>
+                <p class="text-center text-gray-700 max-w-2xl mx-auto mt-4">We build reliable systems with small senior squads, calm delivery, and measurable outcomes.</p>
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-6 mt-12 auto-rows-[150px] md:auto-rows-[170px]">
+                    <article class="soft-ui p-8 md:col-span-4 md:row-span-2">
+                        <h3 class="text-2xl md:text-3xl font-semibold">Our Mission</h3>
+                        <p class="text-gray-700 mt-3 max-w-xl">Help teams ship useful software—secure, accessible, and maintainable—without the chaos.</p>
+                        <div class="mt-6 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Human-centered</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Research-driven</span>
+                            <span class="px-3 py-1 rounded-full text-xs bg-white/50">Calm delivery</span>
+                        </div>
+                    </article>
+                    <article class="soft-ui p-8 md:col-span-2 md:row-span-2">
+                        <h3 class="text-2xl font-semibold">How We Work</h3>
+                        <ul class="mt-3 text-gray-700 space-y-2">
+                            <li>• Small, senior squads</li>
+                            <li>• Security first</li>
+                            <li>• CI/CD + observability</li>
+                            <li>• Design &rarr; dev handoff</li>
+                            <li>• Measure & iterate</li>
+                        </ul>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-2 md:row-span-1">
+                        <h3 class="text-xl font-semibold">Footprint</h3>
+                        <div class="grid grid-cols-4 gap-4 mt-3 text-center">
+                            <div><div class="text-2xl font-bold">40+</div><div class="text-xs text-gray-600">Projects</div></div>
+                            <div><div class="text-2xl font-bold">5</div><div class="text-xs text-gray-600">Countries</div></div>
+                            <div><div class="text-2xl font-bold">99%</div><div class="text-xs text-gray-600">Uptime</div></div>
+                            <div><div class="text-2xl font-bold">2wks</div><div class="text-xs text-gray-600">Release</div></div>
+                        </div>
+                    </article>
+                    <article class="soft-ui p-6 md:col-span-4 md:row-span-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold">Partners</h3>
+                            <a href="#contact" class="soft-ui-btn px-4 py-2 text-sm">Work with us</a>
+                        </div>
+                        <div class="mt-4 grid grid-cols-4 gap-6 items-center">
+                            <img class="h-10 mx-auto opacity-80 grayscale hover:grayscale-0 transition" src="public/assets/kenya.png" alt="Kenya Coat of Arms">
+                            <img class="h-10 mx-auto opacity-80 grayscale hover:grayscale-0 transition" src="public/assets/uganda.png" alt="Uganda Coat of Arms">
+                            <img class="h-10 mx-auto opacity-80 grayscale hover:grayscale-0 transition" src="public/assets/tanzania.png" alt="Tanzania Coat of Arms">
+                            <img class="h-10 mx-auto opacity-80 grayscale hover:grayscale-0 transition" src="public/assets/rwanda.png" alt="Rwanda Coat of Arms">
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Careers Section -->
+        <section id="careers" class="py-20 px-8">
+            <div class="container mx-auto text-center soft-ui p-8 md:p-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Join Our Team</h2>
+                <p class="text-xl text-gray-700 mb-12 max-w-3xl mx-auto">We are always looking for passionate and talented individuals to join us in building the future of technology. Explore our current opportunities and apply today.</p>
+                <a href="#application" class="soft-ui-btn accent-btn px-12 py-4 text-lg">Apply Now</a>
+            </div>
+        </section>
+
+        <!-- Application Form Section -->
+        <section id="application" class="py-20 px-8">
+            <div class="container mx-auto">
+                <div class="max-w-3xl mx-auto soft-ui p-8 md:p-12">
+                    <div class="mb-8">
+                        <div class="text-xs text-gray-600 mb-2">Step <span id="current-step">1</span> of 6</div>
+                        <div class="w-full h-2 soft-ui rounded-full overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-[#00FFFF] transition-all duration-500 ease-in-out" style="width: 17%;"></div>
+                        </div>
+                    </div>
+                    <form id="application-form">
+                        <div id="form-steps">
+                            <div id="step-1" class="step">
+                                <h2 class="text-4xl font-light mb-2">Let's start with the basics</h2>
+                                <p class="text-lg text-gray-700 mb-8">Just a few details to get to know you</p>
+                                <div class="space-y-8">
+                                    <div>
+                                        <label for="name" class="block text-gray-700 mb-2">Full Name</label>
+                                        <input type="text" id="name" class="soft-ui-input w-full p-4" placeholder="What should we call you?" required>
+                                        <span id="name-validation" class="validation-message hidden">Please enter your full name.</span>
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                        <input type="email" id="email" class="soft-ui-input w-full p-4" placeholder="Where should we send good news?" required>
+                                        <span id="email-validation" class="validation-message hidden">Please enter a valid email address.</span>
+                                    </div>
+                                    <div>
+                                        <label for="country" class="block text-gray-700 mb-2">Country</label>
+                                        <select id="country" class="soft-ui-input w-full p-4 appearance-none"></select>
+                                    </div>
+                                </div>
+                                    <div>
+                                        <label for="phone" class="block text-gray-700 mb-2">Phone</label>
+                                        <div class="flex items-center space-x-2">
+                                            <select id="country-code" class="soft-ui-input p-4 appearance-none flex-grow-0"></select>
+                                            <input type="tel" id="phone" class="soft-ui-input w-full p-4 flex-grow" placeholder="might be a message of you have received">
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            <div id="step-2" class="step hidden">
+                                <h2 class="text-4xl font-light mb-2">Education & Experience</h2>
+                                <p class="text-lg text-gray-700 mb-8">Tell us about your background</p>
+                                <div class="space-y-8">
+                                    <div>
+                                        <label for="university" class="block text-gray-700 mb-2">Highest Education Level</label>
+                                        <input type="text" id="university" class="soft-ui-input w-full p-4" placeholder="e.g., Bachelor of Science in Computer Science" required>
+                                        <span id="university-validation" class="validation-message hidden">Please enter your highest education level.</span>
+                                    </div>
+                                    <div>
+                                        <label for="experience" class="block text-gray-700 mb-2">Years of Professional Experience</label>
+                                        <input type="number" id="experience" min="0" class="soft-ui-input w-full p-4" placeholder="e.g., 3" required>
+                                        <span id="experience-validation" class="validation-message hidden">Please enter your years of experience.</span>
+                                    </div>
+                                    <div>
+                                        <label for="resume" class="block text-gray-700 mb-2">Resume / CV (Link)</label>
+                                        <input type="url" id="resume" class="soft-ui-input w-full p-4" placeholder="A link to your resume or CV" required>
+                                        <span id="resume-validation" class="validation-message hidden">Please provide a valid URL for your resume.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-3" class="step hidden">
+                                <h2 class="text-4xl font-light mb-2">Socials & Portfolio</h2>
+                                <p class="text-lg text-gray-700 mb-8">Show us what you've built</p>
+                                <div class="space-y-8">
+                                    <div>
+                                        <label for="github" class="block text-gray-700 mb-2">GitHub Profile URL</label>
+                                        <input type="url" id="github" class="soft-ui-input w-full p-4" placeholder="e.g., https://github.com/your-username" required>
+                                        <span id="github-validation" class="validation-message hidden">Please provide a valid GitHub URL.</span>
+                                    </div>
+                                    <div>
+                                        <label for="linkedin" class="block text-gray-700 mb-2">LinkedIn Profile URL</label>
+                                        <input type="url" id="linkedin" class="soft-ui-input w-full p-4" placeholder="e.g., https://linkedin.com/in/your-profile" required>
+                                        <span id="linkedin-validation" class="validation-message hidden">Please provide a valid LinkedIn URL.</span>
+                                    </div>
+                                    <div>
+                                        <label for="portfolio" class="block text-gray-700 mb-2">Personal Portfolio / Website</label>
+                                        <input type="url" id="portfolio" class="soft-ui-input w-full p-4" placeholder="A link to your personal portfolio or website" required>
+                                        <span id="portfolio-validation" class="validation-message hidden">Please provide a valid portfolio URL.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-4" class="step hidden">
+                                <h2 class="text-4xl font-light mb-2">Skills & Expertise</h2>
+                                <p class="text-lg text-gray-700 mb-8">What is your key skill?</p>
+                                <div class="space-y-8">
+                                    <div>
+                                        <label for="key-skill" class="block text-gray-700 mb-2">Key Skill</label>
+                                        <input type="text" id="key-skill" class="soft-ui-input w-full p-4" placeholder="e.g., JavaScript Development" required>
+                                        <span id="key-skill-validation" class="validation-message hidden">Please enter your key skill.</span>
+                                    </div>
+                                    <div>
+                                        <label for="other-skills" class="block text-gray-700 mb-2">Other Skills (optional)</label>
+                                        <textarea id="other-skills" rows="4" class="soft-ui-input w-full p-4" placeholder="List other skills here, separated by commas."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-5" class="step hidden">
+                                <h2 class="text-4xl font-light mb-2">Aspirations & Fit</h2>
+                                <p class="text-lg text-gray-700 mb-8">Tell us what you are looking for</p>
+                                <div class="space-y-8">
+                                    <div>
+                                        <label for="motivation" class="block text-gray-700 mb-2">What motivates you to work at Prolithica?</label>
+                                        <textarea id="motivation" rows="4" class="soft-ui-input w-full p-4" placeholder="Tell us why you're a great fit!" required></textarea>
+                                        <span id="motivation-validation" class="validation-message hidden">Please share your motivation for joining us.</span>
+                                    </div>
+                                    <div>
+                                        <label for="role-preference" class="block text-gray-700 mb-2">Preferred Role/Team (optional)</label>
+                                        <input type="text" id="role-preference" class="soft-ui-input w-full p-4" placeholder="e.g., Front-end Developer, Cloud Solutions Team">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-6" class="step hidden">
+                                <h2 class="text-4xl font-light mb-2">Review & Submit</h2>
+                                <p class="text-lg text-gray-700 mb-8">Please review your information before submitting.</p>
+                                <div id="review-summary" class="soft-ui-input p-8"></div>
+                                <div class="mt-8 text-center text-green-600 font-bold hidden" id="success-message">
+                                    Application submitted successfully!
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="flex justify-between items-center mt-8">
+                        <button id="back-btn" class="soft-ui-btn px-6 py-3 text-lg hidden">&larr; Back</button>
+                        <button id="next-btn" class="soft-ui-btn accent-btn px-10 py-3 text-lg ml-auto">Next &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-8">
+            <div class="container mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Contact Us</h2>
+                <div class="max-w-2xl mx-auto soft-ui p-8 md:p-12">
+                    <form action="mailto:newtvnbrian@gmail.com" method="post" enctype="text/plain">
+                        <div class="space-y-8">
+                            <div>
+                                <label for="contact-name" class="block text-gray-700 mb-2">Name</label>
+                                <input type="text" id="contact-name" name="name" class="soft-ui-input w-full p-4" placeholder="Your Name">
+                            </div>
+                            <div>
+                                <label for="contact-email" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="contact-email" name="email" class="soft-ui-input w-full p-4" placeholder="Your Email">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" class="soft-ui-input w-full p-4" placeholder="Your Message"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="soft-ui-btn accent-btn px-12 py-4 text-lg">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center text-gray-600 text-sm">
+        &copy; 2025 Prolithica Technologies. All rights reserved.
+    </footer>
+
+    <!-- Confetti JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const formElements = {
+                steps: document.querySelectorAll('.step'),
+                nextBtn: document.getElementById('next-btn'),
+                backBtn: document.getElementById('back-btn'),
+                progressBar: document.getElementById('progress-bar'),
+                currentStepSpan: document.getElementById('current-step'),
+                successMessage: document.getElementById('success-message'),
+                countrySelect: document.getElementById('country'),
+                countryCodeSelect: document.getElementById('country-code'),
+                reviewSummary: document.getElementById('review-summary')
+            };
+
+            const countries = [
+                { "name": "Afghanistan", "code": "AF", "phone": "93" },
+                { "name": "Albania", "code": "AL", "phone": "355" },
+                { "name": "Algeria", "code": "DZ", "phone": "213" },
+                { "name": "Andorra", "code": "AD", "phone": "376" },
+                { "name": "Angola", "code": "AO", "phone": "244" },
+                { "name": "Antigua and Barbuda", "code": "AG", "phone": "1-268" },
+                { "name": "Argentina", "code": "AR", "phone": "54" },
+                { "name": "Armenia", "code": "AM", "phone": "374" },
+                { "name": "Australia", "code": "AU", "phone": "61" },
+                { "name": "Austria", "code": "AT", "phone": "43" },
+                { "name": "Azerbaijan", "code": "AZ", "phone": "994" },
+                { "name": "Bahamas", "code": "BS", "phone": "1-242" },
+                { "name": "Bahrain", "code": "BH", "phone": "973" },
+                { "name": "Bangladesh", "code": "BD", "phone": "880" },
+                { "name": "Barbados", "code": "BB", "phone": "1-246" },
+                { "name": "Belarus", "code": "BY", "phone": "375" },
+                { "name": "Belgium", "code": "BE", "phone": "32" },
+                { "name": "Belize", "code": "BZ", "phone": "501" },
+                { "name": "Benin", "code": "BJ", "phone": "229" },
+                { "name": "Bhutan", "code": "BT", "phone": "975" },
+                { "name": "Bolivia", "code": "BO", "phone": "591" },
+                { "name": "Bosnia and Herzegovina", "code": "BA", "phone": "387" },
+                { "name": "Botswana", "code": "BW", "phone": "267" },
+                { "name": "Brazil", "code": "BR", "phone": "55" },
+                { "name": "Brunei", "code": "BN", "phone": "673" },
+                { "name": "Bulgaria", "code": "BG", "phone": "359" },
+                { "name": "Burkina Faso", "code": "BF", "phone": "226" },
+                { "name": "Burundi", "code": "BI", "phone": "257" },
+                { "name": "Cambodia", "code": "KH", "phone": "855" },
+                { "name": "Cameroon", "code": "CM", "phone": "237" },
+                { "name": "Canada", "code": "CA", "phone": "1" },
+                { "name": "Cape Verde", "code": "CV", "phone": "238" },
+                { "name": "Central African Republic", "code": "CF", "phone": "236" },
+                { "name": "Chad", "code": "TD", "phone": "235" },
+                { "name": "Chile", "code": "CL", "phone": "56" },
+                { "name": "China", "code": "CN", "phone": "86" },
+                { "name": "Colombia", "code": "CO", "phone": "57" },
+                { "name": "Comoros", "code": "KM", "phone": "269" },
+                { "name": "Congo", "code": "CG", "phone": "242" },
+                { "name": "Costa Rica", "code": "CR", "phone": "506" },
+                { "name": "Côte d'Ivoire", "code": "CI", "phone": "225" },
+                { "name": "Croatia", "code": "HR", "phone": "385" },
+                { "name": "Cuba", "code": "CU", "phone": "53" },
+                { "name": "Cyprus", "code": "CY", "phone": "357" },
+                { "name": "Czech Republic", "code": "CZ", "phone": "420" },
+                { "name": "Denmark", "code": "DK", "phone": "45" },
+                { "name": "Djibouti", "code": "DJ", "phone": "253" },
+                { "name": "Dominica", "code": "DM", "phone": "1-767" },
+                { "name": "Dominican Republic", "code": "DO", "phone": "1-809, 1-829, 1-849" },
+                { "name": "Ecuador", "code": "EC", "phone": "593" },
+                { "name": "Egypt", "code": "EG", "phone": "20" },
+                { "name": "El Salvador", "code": "SV", "phone": "503" },
+                { "name": "Equatorial Guinea", "code": "GQ", "phone": "240" },
+                { "name": "Eritrea", "code": "ER", "phone": "291" },
+                { "name": "Estonia", "code": "EE", "phone": "372" },
+                { "name": "Eswatini", "code": "SZ", "phone": "268" },
+                { "name": "Ethiopia", "code": "ET", "phone": "251" },
+                { "name": "Fiji", "code": "FJ", "phone": "679" },
+                { "name": "Finland", "code": "FI", "phone": "358" },
+                { "name": "France", "code": "FR", "phone": "33" },
+                { "name": "Gabon", "code": "GA", "phone": "241" },
+                { "name": "Gambia", "code": "GM", "phone": "220" },
+                { "name": "Georgia", "code": "GE", "phone": "995" },
+                { "name": "Germany", "code": "DE", "phone": "49" },
+                { "name": "Ghana", "code": "GH", "phone": "233" },
+                { "name": "Greece", "code": "GR", "phone": "30" },
+                { "name": "Grenada", "code": "GD", "phone": "1-473" },
+                { "name": "Guatemala", "code": "GT", "phone": "502" },
+                { "name": "Guinea", "code": "GN", "phone": "224" },
+                { "name": "Guinea-Bissau", "code": "GW", "phone": "245" },
+                { "name": "Guyana", "code": "GY", "phone": "592" },
+                { "name": "Haiti", "code": "HT", "phone": "509" },
+                { "name": "Honduras", "code": "HN", "phone": "504" },
+                { "name": "Hungary", "code": "HU", "phone": "36" },
+                { "name": "Iceland", "code": "IS", "phone": "354" },
+                { "name": "India", "code": "IN", "phone": "91" },
+                { "name": "Indonesia", "code": "ID", "phone": "62" },
+                { "name": "Iran", "code": "IR", "phone": "98" },
+                { "name": "Iraq", "code": "IQ", "phone": "964" },
+                { "name": "Ireland", "code": "IE", "phone": "353" },
+                { "name": "Israel", "code": "IL", "phone": "972" },
+                { "name": "Italy", "code": "IT", "phone": "39" },
+                { "name": "Jamaica", "code": "JM", "phone": "1-876" },
+                { "name": "Japan", "code": "JP", "phone": "81" },
+                { "name": "Jordan", "code": "JO", "phone": "962" },
+                { "name": "Kazakhstan", "code": "KZ", "phone": "7" },
+                { "name": "Kenya", "code": "KE", "phone": "254" },
+                { "name": "Kiribati", "code": "KI", "phone": "686" },
+                { "name": "Kuwait", "code": "KW", "phone": "965" },
+                { "name": "Kyrgyzstan", "code": "KG", "phone": "996" },
+                { "name": "Laos", "code": "LA", "phone": "856" },
+                { "name": "Latvia", "code": "LV", "phone": "371" },
+                { "name": "Lebanon", "code": "LB", "phone": "961" },
+                { "name": "Lesotho", "code": "LS", "phone": "266" },
+                { "name": "Liberia", "code": "LR", "phone": "231" },
+                { "name": "Libya", "code": "LY", "phone": "218" },
+                { "name": "Liechtenstein", "code": "LI", "phone": "423" },
+                { "name": "Lithuania", "code": "LT", "phone": "370" },
+                { "name": "Luxembourg", "code": "LU", "phone": "352" },
+                { "name": "Madagascar", "code": "MG", "phone": "261" },
+                { "name": "Malawi", "code": "MW", "phone": "265" },
+                { "name": "Malaysia", "code": "MY", "phone": "60" },
+                { "name": "Maldives", "code": "MV", "phone": "960" },
+                { "name": "Mali", "code": "ML", "phone": "223" },
+                { "name": "Malta", "code": "MT", "phone": "356" },
+                { "name": "Marshall Islands", "code": "MH", "phone": "692" },
+                { "name": "Mauritania", "code": "MR", "phone": "222" },
+                { "name": "Mauritius", "code": "MU", "phone": "230" },
+                { "name": "Mexico", "code": "MX", "phone": "52" },
+                { "name": "Micronesia", "code": "FM", "phone": "691" },
+                { "name": "Moldova", "code": "MD", "phone": "373" },
+                { "name": "Monaco", "code": "MC", "phone": "377" },
+                { "name": "Mongolia", "code": "MN", "phone": "976" },
+                { "name": "Montenegro", "code": "ME", "phone": "382" },
+                { "name": "Morocco", "code": "MA", "phone": "212" },
+                { "name": "Mozambique", "code": "MZ", "phone": "258" },
+                { "name": "Myanmar", "code": "MM", "phone": "95" },
+                { "name": "Namibia", "code": "NA", "phone": "264" },
+                { "name": "Nauru", "code": "NR", "phone": "674" },
+                { "name": "Nepal", "code": "NP", "phone": "977" },
+                { "name": "Netherlands", "code": "NL", "phone": "31" },
+                { "name": "New Zealand", "code": "NZ", "phone": "64" },
+                { "name": "Nicaragua", "code": "NI", "phone": "505" },
+                { "name": "Niger", "code": "NE", "phone": "227" },
+                { "name": "Nigeria", "code": "NG", "phone": "234" },
+                { "name": "North Korea", "code": "KP", "phone": "850" },
+                { "name": "North Macedonia", "code": "MK", "phone": "389" },
+                { "name": "Norway", "code": "NO", "phone": "47" },
+                { "name": "Oman", "code": "OM", "phone": "968" },
+                { "name": "Pakistan", "code": "PK", "phone": "92" },
+                { "name": "Palau", "code": "PW", "phone": "680" },
+                { "name": "Palestine", "code": "PS", "phone": "970" },
+                { "name": "Panama", "code": "PA", "phone": "507" },
+                { "name": "Papua New Guinea", "code": "PG", "phone": "675" },
+                { "name": "Paraguay", "code": "PY", "phone": "595" },
+                { "name": "Peru", "code": "PE", "phone": "51" },
+                { "name": "Philippines", "code": "PH", "phone": "63" },
+                { "name": "Poland", "code": "PL", "phone": "48" },
+                { "name": "Portugal", "code": "PT", "phone": "351" },
+                { "name": "Qatar", "code": "QA", "phone": "974" },
+                { "name": "Romania", "code": "RO", "phone": "40" },
+                { "name": "Russia", "code": "RU", "phone": "7" },
+                { "name": "Rwanda", "code": "RW", "phone": "250" },
+                { "name": "Saint Kitts and Nevis", "code": "KN", "phone": "1-869" },
+                { "name": "Saint Lucia", "code": "LC", "phone": "1-758" },
+                { "name": "Saint Vincent and the Grenadines", "code": "VC", "phone": "1-784" },
+                { "name": "Samoa", "code": "WS", "phone": "685" },
+                { "name": "San Marino", "code": "SM", "phone": "378" },
+                { "name": "Sao Tome and Principe", "code": "ST", "phone": "239" },
+                { "name": "Saudi Arabia", "code": "SA", "phone": "966" },
+                { "name": "Senegal", "code": "SN", "phone": "221" },
+                { "name": "Serbia", "code": "RS", "phone": "381" },
+                { "name": "Seychelles", "code": "SC", "phone": "248" },
+                { "name": "Sierra Leone", "code": "SL", "phone": "232" },
+                { "name": "Singapore", "code": "SG", "phone": "65" },
+                { "name": "Slovakia", "code": "SK", "phone": "421" },
+                { "name": "Slovenia", "code": "SI", "phone": "386" },
+                { "name": "Solomon Islands", "code": "SB", "phone": "677" },
+                { "name": "Somalia", "code": "SO", "phone": "252" },
+                { "name": "South Africa", "code": "ZA", "phone": "27" },
+                { "name": "South Korea", "code": "KR", "phone": "82" },
+                { "name": "South Sudan", "code": "SS", "phone": "211" },
+                { "name": "Spain", "code": "ES", "phone": "34" },
+                { "name": "Sri Lanka", "code": "LK", "phone": "94" },
+                { "name": "Sudan", "code": "SD", "phone": "249" },
+                { "name": "Suriname", "code": "SR", "phone": "597" },
+                { "name": "Sweden", "code": "SE", "phone": "46" },
+                { "name": "Switzerland", "code": "CH", "phone": "41" },
+                { "name": "Syria", "code": "SY", "phone": "963" },
+                { "name": "Taiwan", "code": "TW", "phone": "886" },
+                { "name": "Tajikistan", "code": "TJ", "phone": "992" },
+                { "name": "Tanzania", "code": "TZ", "phone": "255" },
+                { "name": "Thailand", "code": "TH", "phone": "66" },
+                { "name": "Timor-Leste", "code": "TL", "phone": "670" },
+                { "name": "Togo", "code": "TG", "phone": "228" },
+                { "name": "Tonga", "code": "TO", "phone": "676" },
+                { "name": "Trinidad and Tobago", "code": "TT", "phone": "1-868" },
+                { "name": "Tunisia", "code": "TN", "phone": "216" },
+                { "name": "Turkey", "code": "TR", "phone": "90" },
+                { "name": "Turkmenistan", "code": "TM", "phone": "993" },
+                { "name": "Tuvalu", "code": "TV", "phone": "688" },
+                { "name": "Uganda", "code": "UG", "phone": "256" },
+                { "name": "Ukraine", "code": "UA", "phone": "380" },
+                { "name": "United Arab Emirates", "code": "AE", "phone": "971" },
+                { "name": "United Kingdom", "code": "GB", "phone": "44" },
+                { "name": "United States", "code": "US", "phone": "1" },
+                { "name": "Uruguay", "code": "UY", "phone": "598" },
+                { "name": "Uzbekistan", "code": "UZ", "phone": "998" },
+                { "name": "Vanuatu", "code": "VU", "phone": "678" },
+                { "name": "Vatican City", "code": "VA", "phone": "379" },
+                { "name": "Venezuela", "code": "VE", "phone": "58" },
+                { "name": "Vietnam", "code": "VN", "phone": "84" },
+                { "name": "Yemen", "code": "YE", "phone": "967" },
+                { "name": "Zambia", "code": "ZM", "phone": "260" },
+                { "name": "Zimbabwe", "code": "ZW", "phone": "263" }
+            ];
+
+            let currentStep = 0;
+
+            function validateStep(stepIndex) {
+                const step = formElements.steps[stepIndex];
+                let isValid = true;
+                const requiredInputs = step.querySelectorAll('[required]');
+                requiredInputs.forEach(input => {
+                    const validationMessage = document.getElementById(`${input.id}-validation`);
+                    if (input.type === 'url' && input.value && !isValidUrl(input.value)) {
+                        isValid = false;
+                        validationMessage.textContent = 'Please enter a valid URL.';
+                        validationMessage.classList.remove('hidden');
+                    } else if (input.type === 'email' && input.value && !isValidEmail(input.value)) {
+                        isValid = false;
+                        validationMessage.textContent = 'Please enter a valid email address.';
+                        validationMessage.classList.remove('hidden');
+                    } else if (!input.value.trim()) {
+                        isValid = false;
+                        validationMessage.textContent = `Please enter your ${input.id.replace('-', ' ')}.`;
+                        validationMessage.classList.remove('hidden');
+                    } else {
+                        validationMessage.classList.add('hidden');
+                    }
+                });
+                return isValid;
+            }
+
+            function isValidUrl(string) {
+                try {
+                    new URL(string);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function showStep(stepIndex) {
+                formElements.steps.forEach((step, index) => {
+                    step.classList.toggle('hidden', index !== stepIndex);
+                });
+                formElements.currentStepSpan.textContent = stepIndex + 1;
+                formElements.progressBar.style.width = ((stepIndex + 1) / formElements.steps.length) * 100 + '%';
+                formElements.backBtn.classList.toggle('hidden', stepIndex === 0);
+
+                if (stepIndex === formElements.steps.length - 1) {
+                    formElements.nextBtn.textContent = 'Submit';
+                    updateReviewSummary();
+                } else {
+                    formElements.nextBtn.textContent = 'Next →';
+                }
+            }
+
+            function updateReviewSummary() {
+                const data = {
+                    'Full Name': document.getElementById('name').value,
+                    'Email': document.getElementById('email').value,
+                    'Phone': `${formElements.countryCodeSelect.options[formElements.countryCodeSelect.selectedIndex].text} ${document.getElementById('phone').value}`,
+                    'Country': document.getElementById('country').value,
+                    'Highest Education': document.getElementById('university').value,
+                    'Years of Experience': document.getElementById('experience').value,
+                    'Resume URL': document.getElementById('resume').value,
+                    'GitHub URL': document.getElementById('github').value,
+                    'LinkedIn URL': document.getElementById('linkedin').value,
+                    'Portfolio URL': document.getElementById('portfolio').value,
+                    'Key Skill': document.getElementById('key-skill').value,
+                    'Other Skills': document.getElementById('other-skills').value || 'N/A',
+                    'Motivation': document.getElementById('motivation').value,
+                    'Preferred Role': document.getElementById('role-preference').value || 'N/A'
+                };
+
+                let summaryHtml = '';
+                for (const label in data) {
+                    summaryHtml += `
+                        <div class="soft-ui-summary-item">
+                            <div class="soft-ui-summary-label">${label}:</div>
+                            <div class="soft-ui-summary-value">${data[label]}</div>
+                        </div>
+                    `;
+                }
+                formElements.reviewSummary.innerHTML = summaryHtml;
+            }
+
+            function createConfetti() {
+                const colors = ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'];
+                const duration = 2 * 1000;
+                const animationEnd = Date.now() + duration;
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+                (function frame() {
+                    confetti({
+                        angle: randomInRange(55, 125),
+                        spread: randomInRange(50, 70),
+                        particleCount: randomInRange(50, 100),
+                        origin: { y: 0.6 },
+                        colors: colors,
+                    });
+                    if (Date.now() < animationEnd) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+
+            function populateCountryDropdowns() {
+                countries.sort((a, b) => a.name.localeCompare(b.name));
+                const countryFragment = document.createDocumentFragment();
+                const codeFragment = document.createDocumentFragment();
+
+                countries.forEach(country => {
+                    const countryOption = document.createElement('option');
+                    countryOption.value = country.name;
+                    countryOption.textContent = country.name;
+                    countryFragment.appendChild(countryOption);
+
+                    const codeOption = document.createElement('option');
+                    codeOption.value = country.code;
+                    codeOption.textContent = `+${country.phone} (${country.code})`;
+                    codeFragment.appendChild(codeOption);
+                });
+
+                formElements.countrySelect.appendChild(countryFragment);
+                formElements.countryCodeSelect.appendChild(codeFragment);
+            }
+
+            formElements.nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    if (currentStep < formElements.steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    } else {
+                        // This form does not actually submit, it's for demonstration.
+                        // In a real-world scenario, you would handle a form submission here.
+                        createConfetti();
+                        formElements.successMessage.classList.remove('hidden');
+                        formElements.nextBtn.classList.add('hidden');
+                        formElements.backBtn.classList.add('hidden');
+                    }
+                }
+            });
+
+            formElements.backBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                    formElements.successMessage.classList.add('hidden');
+                    formElements.nextBtn.classList.remove('hidden');
+                }
+            });
+
+            formElements.countrySelect.addEventListener('change', (event) => {
+                const selectedCountry = countries.find(country => country.name === event.target.value);
+                if (selectedCountry) {
+                    formElements.countryCodeSelect.value = selectedCountry.code;
+                }
+            });
+
+            // Initialization
+            showStep(currentStep);
+            populateCountryDropdowns();
+
+        });
+    </script>
+</body>
+</html>
