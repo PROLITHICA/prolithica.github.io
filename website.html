@@ -221,21 +221,27 @@
                     P R O L I T H I C A
                 </div>
             </div>
-            <div class="container mx-auto grid md:grid-cols-12 gap-10 items-center px-8 w-full">
-                <div class="md:col-span-7">
-                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Innovating Tomorrow’s Solutions Today</h1>
-                    <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-xl">Product engineering, resilient cloud, and research-driven design—shipped with a calm, repeatable playbook.</p>
-                    <div class="flex items-center gap-4">
+            <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center px-8 w-full">
+                <!-- Left: text and CTA -->
+                <div class="flex flex-col justify-center h-full">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight md:leading-[1.1] mb-8 md:mb-10 tracking-tight">
+                        Innovating Tomorrow’s Solutions Today
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-700 mb-10 md:mb-12 max-w-xl leading-relaxed">
+                        Product engineering, resilient cloud, and research-driven design—shipped with a calm, repeatable playbook.
+                    </p>
+                    <div class="flex items-center gap-6 md:gap-8 mb-8 md:mb-10">
                         <a href="#services" class="soft-ui-btn accent-btn px-10 py-3 text-base">Learn More</a>
                         <a href="#contact" class="soft-ui-btn px-10 py-3 text-base">Talk to us</a>
                     </div>
-                    <div class="mt-8 flex flex-wrap gap-3 text-sm text-gray-700">
+                    <div class="flex flex-wrap gap-4 text-sm text-gray-700">
                         <span class="soft-ui px-4 py-2 rounded-full">99.9% uptime</span>
                         <span class="soft-ui px-4 py-2 rounded-full">Secure by default</span>
                         <span class="soft-ui px-4 py-2 rounded-full">2-week releases</span>
                     </div>
                 </div>
-                <div class="md:col-span-5 relative h-[320px] md:h-[420px]">
+                <!-- Right: floating logo and pills -->
+                <div class="relative h-[320px] md:h-[420px] flex items-center justify-center">
                     <div class="pill absolute top-4 left-6" data-delay="1">AI/ML</div>
                     <div class="pill absolute top-24 right-6" data-delay="2">Cloud</div>
                     <div class="pill absolute bottom-16 left-8" data-delay="0">Graph DBs</div>
@@ -935,4 +941,66 @@
         });
     </script>
 </body>
+<!-- Matrix Rain Canvas Background for Hero -->
+<section id="mesh-bg-hero" class="absolute top-0 left-0 w-full h-[92vh] overflow-hidden z-0 pointer-events-none">
+    <canvas id="mesh-canvas" class="w-full h-full" style="display:block;"></canvas>
+</section>
+<script>
+// Animated Mesh (wavy grid) background for hero section
+const meshCanvas = document.getElementById('mesh-canvas');
+const meshCtx = meshCanvas.getContext('2d');
+function resizeMeshCanvas() {
+    const hero = document.getElementById('mesh-bg-hero');
+    meshCanvas.width = hero.offsetWidth;
+    meshCanvas.height = hero.offsetHeight;
+}
+resizeMeshCanvas();
+
+let meshWidth = meshCanvas.width;
+let meshHeight = meshCanvas.height;
+const meshRows = 18;
+const meshCols = 32;
+const meshSpacingX = meshWidth / (meshCols - 1);
+const meshSpacingY = meshHeight / (meshRows - 1);
+
+function drawMesh(time) {
+    meshCtx.clearRect(0, 0, meshWidth, meshHeight);
+    meshCtx.strokeStyle = 'rgba(34,34,34,0.08)';
+    meshCtx.lineWidth = 1.2;
+    for (let y = 0; y < meshRows; y++) {
+        meshCtx.beginPath();
+        for (let x = 0; x < meshCols; x++) {
+            const px = x * meshSpacingX;
+            const py = y * meshSpacingY + Math.sin((x / 2) + time / 900 + y) * 10 + Math.cos((y / 2) + time / 1200 + x) * 6;
+            if (x === 0) {
+                meshCtx.moveTo(px, py);
+            } else {
+                meshCtx.lineTo(px, py);
+            }
+        }
+        meshCtx.stroke();
+    }
+    for (let x = 0; x < meshCols; x++) {
+        meshCtx.beginPath();
+        for (let y = 0; y < meshRows; y++) {
+            const px = x * meshSpacingX + Math.sin((y / 2) + time / 1100 + x) * 2;
+            const py = y * meshSpacingY + Math.cos((x / 2) + time / 1300 + y) * 2;
+            if (y === 0) {
+                meshCtx.moveTo(px, py);
+            } else {
+                meshCtx.lineTo(px, py);
+            }
+        }
+        meshCtx.stroke();
+    }
+    requestAnimationFrame(drawMesh);
+}
+requestAnimationFrame(drawMesh);
+
+window.addEventListener('resize', () => {
+    resizeMeshCanvas();
+    meshWidth = meshCanvas.width;
+    meshHeight = meshCanvas.height;
+});
+</script>
 </html>
