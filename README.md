@@ -1,5 +1,8 @@
-P R O L I T H I C A
-Shaping Tomorrow's Digital Landscape
+**P R O L I T H I C A**
+
+
+*Shaping Tomorrow's Digital Landscape*
+
 Prolithica Technologies is a leading provider of powerful, secure, and intuitive digital solutions. We are committed to driving innovation and growth for businesses across various industries by leveraging cutting-edge technology and a client-centric approach.
 
 Our Core Services
