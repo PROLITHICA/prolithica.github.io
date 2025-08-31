@@ -57,14 +57,30 @@
                     </div>
                 </div>
                 <!-- Right: floating logo and pills -->
-                <div class="relative h-[320px] md:h-[420px] flex items-center justify-center">
-                    <div class="pill absolute top-4 left-6" data-delay="1">AI/ML</div>
-                    <div class="pill absolute top-24 right-6" data-delay="2">Cloud</div>
-                    <div class="pill absolute bottom-16 left-8" data-delay="0">Graph DBs</div>
-                    <div class="pill absolute bottom-4 right-10" data-delay="3">Design Systems</div>
-                    <!-- Centered Prolithica logo -->
-                    <img src="public/assets/prolithica.png" alt="Prolithica Logo" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[420px] md:max-h-[540px] w-auto" style="z-index:1;" />
-                </div>
+                <div id="heroOrbit" class="relative h-[320px] md:h-[420px] flex items-center justify-center">
+  <!-- orbit rings -->
+  <div aria-hidden="true" class="orbit-rings">
+    <div class="orbit-ring orbit-ring--outer"></div>
+    <div class="orbit-ring orbit-ring--inner"></div>
+  </div>
+
+  <!-- pills (unchanged) -->
+  <div class="pill absolute top-4 left-6" data-delay="1">AI/ML</div>
+  <div class="pill absolute top-4 right-6" data-delay="2">Cloud</div>
+  <div class="pill absolute top-24 left-8" data-delay="3">DevOps</div>
+  <div class="pill absolute top-24 right-8" data-delay="4">Frontends</div>
+  <div class="pill absolute bottom-32 left-6" data-delay="5">Node.js</div>
+  <div class="pill absolute bottom-32 right-6" data-delay="6">Backend</div>
+  <div class="pill absolute bottom-16 right-8" data-delay="7">Docker</div>
+  <div class="pill absolute bottom-4 left-10" data-delay="8">AWS</div>
+  <div class="pill absolute bottom-4 right-10" data-delay="3">Design Systems</div>
+
+  <!-- Centered Prolithica logo -->
+  <img src="./public/assets/hero-portrait.png"
+       alt="Prolithica Logo"
+       class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[420px] md:max-h-[540px] w-auto z-[3]" />
+</div>
+
             </div>
         </section>
 
