@@ -610,25 +610,25 @@
               >
                 <img
                   loading="lazy"
-                  class="h-12 mx-auto opacity-80 grayscale hover:grayscale-0 transition object-contain"
+                  class="h-12 mx-auto object-contain"
                   src="public/assets/kenya.png"
                   alt="Kenya Coat of Arms"
                 />
                 <img
                   loading="lazy"
-                  class="h-12 mx-auto opacity-80 grayscale hover:grayscale-0 transition object-contain"
+                  class="h-12 mx-auto object-contain"
                   src="public/assets/Uganda.png"
                   alt="Uganda Coat of Arms"
                 />
                 <img
                   loading="lazy"
-                  class="h-12 mx-auto opacity-80 grayscale hover:grayscale-0 transition object-contain"
+                  class="h-12 mx-auto object-contain"
                   src="public/assets/Tanzania.png"
                   alt="Tanzania Coat of Arms"
                 />
                 <img
                   loading="lazy"
-                  class="h-12 mx-auto opacity-80 grayscale hover:grayscale-0 transition object-contain"
+                  class="h-12 mx-auto object-contain"
                   src="public/assets/Rwanda.png"
                   alt="Rwanda Coat of Arms"
                 />
@@ -1222,14 +1222,18 @@
                 class="rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 shadow-2xl p-6 md:p-10"
               >
                 <!-- Progress (ID preserved) -->
-                <div
-                  class="w-full h-2 rounded-full overflow-hidden mb-8 bg-white/70"
-                >
-                  <div
-                    id="contact-progress-bar"
-                    class="h-full bg-gray-800 transition-all duration-500 ease-in-out"
-                    style="width: 33%"
-                  ></div>
+                <div class="mb-8">
+                  <div class="flex items-center justify-between text-xs text-gray-600 mb-2">
+                    <span>Step <span id="contact-current-step">1</span> of 4</span>
+                    <span class="hidden sm:inline">~2 minutes</span>
+                  </div>
+                  <div class="w-full h-2 soft-ui rounded-full overflow-hidden bg-white/70">
+                    <div
+                      id="contact-progress-bar"
+                      class="h-full bg-gray-800 transition-all duration-500 ease-in-out"
+                      style="width: 25%"
+                    ></div>
+                  </div>
                 </div>
 
                 <!-- Form (IDs preserved) -->
@@ -1517,15 +1521,34 @@
                 </ul>
               </div>
 
-              <div
-                class="rounded-3xl bg-white/70 backdrop-blur-md border border-white/60 p-6 shadow-sm"
-              >
-                <h3 class="text-xl font-semibold mb-3">Prefer email?</h3>
-                <p class="text-gray-700">
-                  Send a brief to
-                  <span class="font-medium">hello@prolithica.example</span> and
-                  we’ll respond within 24–48h.
-                </p>
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div
+                  class="rounded-3xl bg-white/70 backdrop-blur-md border border-white/60 p-5 shadow-sm"
+                >
+                  <h3 class="text-lg font-semibold mb-2">Prefer email?</h3>
+                  <p class="text-gray-700 text-sm">
+                    Send a brief to
+                    <a href="mailto:ceo@prolithica.com" class="font-medium block text-gray-900 hover:text-blue-600 transition-colors break-words">ceo@prolithica.com</a>
+                    Response in ~24h.
+                  </p>
+                </div>
+
+                <div
+                  class="rounded-3xl bg-white/70 backdrop-blur-md border border-white/60 p-5 shadow-sm"
+                >
+                  <h3 class="text-lg font-semibold mb-2">CSR</h3>
+                  <p class="text-gray-700 text-sm mb-3">
+                    Empowering communities via education.
+                  </p>
+                  <a
+                    href="https://www.wordandlearn.com"
+                    target="_blank"
+                    rel="noopener"
+                    class="soft-ui-btn px-4 py-2 text-xs inline-block font-medium hover:scale-105 transition-transform"
+                  >
+                    Visit Word & Learn
+                  </a>
+                </div>
               </div>
             </aside>
           </div>
