@@ -248,6 +248,7 @@
         .scroll-indicator {
             animation: floatY 2.2s ease-in-out infinite;
         }
-          .writing-mode-vertical-rl { writing-mode: vertical-rl; }
 
-         
+        .writing-mode-vertical-rl {
+            writing-mode: vertical-rl;
+        }

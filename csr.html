@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prolithica CSR - Empowering Communities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link href="styles/style.css" rel="stylesheet" />
+  <link href="styles/hero.css" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#e0e0e0] text-[#1a1a1a]">
+  <!-- Fixed Glassy Button to Home -->
+  <div class="fixed top-6 right-8 flex items-center justify-end z-50">
+    <a href="index.html" class="glassy-btn">Back to Home</a>
+  </div>
+
+  <main>
+
+    <section id="hero" class="relative min-h-[92vh] flex items-center overflow-hidden pt-24">
+      <div aria-hidden="true" class="hero-canvas">
+        <div class="hero-blob hero-blob--1"></div>
+        <div class="hero-blob hero-blob--2"></div>
+      </div>
+      <div class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2 z-10">
+        <div class="brand-vertical text-sm font-semibold text-gray-700 tracking-[0.38em] text-center">
+          P R O L I T H I C A - C S R
+        </div>
+      </div>
+      <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center px-8 w-full">
+        <!-- Left: text and CTA -->
+        <div class="flex flex-col justify-center h-full">
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight md:leading-[1.1] mb-8 md:mb-10 tracking-tight">
+            About Our CSR Program
+          </h1>
+          <p class="text-lg md:text-xl text-gray-700 mb-10 md:mb-12 max-w-xl leading-relaxed">
+            We are passionately committed to developing tech products for good. If you're driving a non-profit or social initiative and need skilled developers or creative expertise, we partner with industries pro-bono to bring impactful visions to life.
+          </p>
+          <div class="flex items-center gap-6 md:gap-8 mb-8 md:mb-10">
+            <a href="#get-involved" class="soft-ui-btn accent-btn px-10 py-3 text-base">Get Involved</a>
+            <a href="#about-csr" class="soft-ui-btn px-10 py-3 text-base">Learn More</a>
+          </div>
+          <div class="flex flex-wrap gap-4 text-sm text-gray-700">
+            <span class="soft-ui px-4 py-2 rounded-full">Community Driven</span>
+            <span class="soft-ui px-4 py-2 rounded-full">Skill Building</span>
+            <span class="soft-ui px-4 py-2 rounded-full">Tech Funding</span>
+          </div>
+        </div>
+        <!-- Right: SVG Image -->
+        <div class="relative h-[600px] md:h-[900px] flex items-center justify-center">
+             <!-- Centered SVG -->
+            <img src="./public/assets/prolithica%20csr.svg" alt="Prolithica CSR"
+            class="max-h-[800px] md:max-h-[1200px] w-auto z-10 drop-shadow-2xl scale-125 origin-center" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT CSR -->
+    <section id="about-csr" class="relative py-20 px-8">
+      <div
+        class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-300/40 to-transparent">
+      </div>
+
+      <div class="relative container mx-auto max-w-6xl">
+        <div class="text-center mb-16">
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full bg-white/60 backdrop-blur-md border border-white/40 text-sm font-medium text-gray-700">
+            Our Mission
+          </span>
+          <h2 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight">
+            Creating Impact
+          </h2>
+          <p class="text-gray-700 max-w-2xl mx-auto mt-4">
+            We believe in the power of technology to transform lives. Our CSR program focuses on two key pillars:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Pillar 1: Fund Initiatives -->
+          <article
+            class="group relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#1a1a1a] to-[#2b2b2b] text-white shadow-2xl p-8">
+            <div
+              class="absolute inset-0 pointer-events-none bg-[radial-gradient(120px_80px_at_20%_10%,rgba(255,255,255,0.08),transparent)]">
+            </div>
+            <div class="relative z-10">
+              <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-6">
+                <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold mb-4">Fund Tech Initiatives</h3>
+              <p class="text-white/80 mb-8 leading-relaxed">
+                Do you have a groundbreaking idea that solves a community problem but lack the resources? We provide funding and mentorship to help kickstart impactful technology projects.
+              </p>
+              <a href="#get-involved" onclick="selectCsrType('fund')"
+                class="inline-flex items-center gap-2 rounded-2xl px-6 py-3 bg-white text-[#111] font-semibold hover:bg-gray-100 transition-colors">
+                Apply for Funding
+              </a>
+            </div>
+          </article>
+
+          <!-- Pillar 2: Request Trainers -->
+          <article
+            class="group relative rounded-3xl bg-white/80 backdrop-blur-md border border-white/60 shadow-2xl p-8">
+            <div class="relative z-10">
+              <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mb-6">
+                <svg viewBox="0 0 24 24" class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold mb-4 text-gray-900">Request Trainers</h3>
+              <p class="text-gray-700 mb-8 leading-relaxed">
+                Need expert guidance? We deploy skilled trainers to conduct workshops, bootcamps, and training sessions on software development, cloud computing, and digital literacy.
+              </p>
+              <a href="#get-involved" onclick="selectCsrType('trainers')"
+                class="inline-flex items-center gap-2 rounded-2xl px-6 py-3 bg-[#1a1a1a] text-white font-semibold hover:bg-gray-800 transition-colors">
+                Request Trainers
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get Involved Section -->
+    <section id="get-involved" class="relative py-24 px-8 bg-[#f3f3f3]">
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-12 text-center">
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/60 backdrop-blur-md border border-white/40 text-sm font-medium text-gray-700">Join Us</span>
+                <h2 class="mt-5 text-4xl md:text-5xl font-extrabold tracking-tight">Get Involved</h2>
+                <p class="mt-3 text-gray-700 text-lg max-w-2xl mx-auto">Tell us how we can support your vision.</p>
+            </div>
+
+            <div class="soft-ui max-w-3xl mx-auto p-6 md:p-10 bg-white/80 backdrop-blur-md rounded-3xl border border-white/60 shadow-2xl">
+                <!-- Progress Header -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between text-xs text-gray-600 mb-2">
+                        <span>Step <span id="csr-current-step">1</span> of 3</span>
+                    </div>
+                    <div class="w-full h-2 soft-ui rounded-full overflow-hidden bg-white/70">
+                        <div id="csr-progress-bar" class="h-full bg-gray-800 transition-all duration-500 ease-in-out" style="width: 33%"></div>
+                    </div>
+                </div>
+
+                <form id="csr-form" novalidate>
+                    <!-- Step 1: Selection & Basics -->
+                    <div id="csr-step-1" class="csr-step">
+                        <h3 class="text-2xl font-semibold mb-6">How can we help?</h3>
+                        
+                        <!-- Main Selection -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="csr_type" value="funding" class="peer sr-only" checked>
+                                <div class="p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:shadow-md peer-checked:border-gray-800 peer-checked:bg-gray-50 transition-all">
+                                    <h4 class="font-bold text-lg mb-1">Fund Initiative</h4>
+                                    <p class="text-sm text-gray-600">I have a tech project needing support.</p>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="csr_type" value="trainers" class="peer sr-only">
+                                <div class="p-4 rounded-2xl border-2 border-transparent bg-white shadow-sm hover:shadow-md peer-checked:border-gray-800 peer-checked:bg-gray-50 transition-all">
+                                    <h4 class="font-bold text-lg mb-1">Need Trainers</h4>
+                                    <p class="text-sm text-gray-600">I need experts to teach skills.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label for="csr-name" class="block text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="csr-name" class="soft-ui-input w-full p-4" placeholder="Your Name" required />
+                                <span id="csr-name-validation" class="validation-message hidden text-red-500 text-sm mt-1">Required</span>
+                            </div>
+                            <div>
+                                <label for="csr-email" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="csr-email" class="soft-ui-input w-full p-4" placeholder="your@email.com" required />
+                                <span id="csr-email-validation" class="validation-message hidden text-red-500 text-sm mt-1">Valid email required</span>
+                            </div>
+                            <div>
+                                <label for="csr-org" class="block text-gray-700 mb-2">Organization / Community Group</label>
+                                <input type="text" id="csr-org" class="soft-ui-input w-full p-4" placeholder="Organization Name" required />
+                                <span id="csr-org-validation" class="validation-message hidden text-red-500 text-sm mt-1">Required</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Details (Dynamic based on selection) -->
+                    <div id="csr-step-2" class="csr-step hidden">
+                        <h3 class="text-2xl font-semibold mb-6">Tell us more</h3>
+                        
+                        <!-- Funding Specific Fields -->
+                        <div id="funding-fields">
+                            <div class="mb-6">
+                                <label for="project-title" class="block text-gray-700 mb-2">Project Title</label>
+                                <input type="text" id="project-title" class="soft-ui-input w-full p-4" placeholder="Name of your initiative" />
+                            </div>
+                            <div class="mb-6">
+                                <label for="project-desc" class="block text-gray-700 mb-2">Project Description</label>
+                                <textarea id="project-desc" rows="4" class="soft-ui-input w-full p-4" placeholder="Describe the problem and your solution..."></textarea>
+                            </div>
+                            <div class="mb-6">
+                                <label for="funding-amount" class="block text-gray-700 mb-2">Estimated Funding Needed</label>
+                                <select id="funding-amount" class="soft-ui-input w-full p-4">
+                                    <option value="" disabled selected>Select Range</option>
+                                    <option value="< $1k">< $1,000 USD</option>
+                                    <option value="$1k - $5k">$1,000 - $5,000 USD</option>
+                                    <option value="$5k - $10k">$5,000 - $10,000 USD</option>
+                                    <option value="> $10k">> $10,000 USD</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Trainers Specific Fields -->
+                        <div id="trainers-fields" class="hidden">
+                            <div class="mb-6">
+                                <label for="training-topic" class="block text-gray-700 mb-2">Topic / Area of Training</label>
+                                <input type="text" id="training-topic" class="soft-ui-input w-full p-4" placeholder="e.g., Web Development, Digital Literacy" />
+                            </div>
+                            <div class="mb-6">
+                                <label for="trainee-count" class="block text-gray-700 mb-2">Estimated Number of Trainees</label>
+                                <input type="number" id="trainee-count" class="soft-ui-input w-full p-4" placeholder="e.g., 20" />
+                            </div>
+                             <div class="mb-6">
+                                <label for="training-location" class="block text-gray-700 mb-2">Location / Venue</label>
+                                <input type="text" id="training-location" class="soft-ui-input w-full p-4" placeholder="City, Country" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review -->
+                    <div id="csr-step-3" class="csr-step hidden">
+                        <h3 class="text-2xl font-semibold mb-6">Review & Submit</h3>
+                        <div id="csr-summary" class="bg-gray-100 p-6 rounded-2xl space-y-3 mb-6">
+                            <!-- Populated via JS -->
+                        </div>
+                         <div id="csr-success-message" class="hidden text-center p-4 bg-green-100 text-green-700 rounded-xl mb-4">
+                            Details submitted successfully! We will reach out soon.
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-8">
+                        <button type="button" id="csr-back-btn" class="soft-ui-btn px-6 py-3 hidden">Back</button>
+                        <button type="button" id="csr-next-btn" class="soft-ui-btn accent-btn px-8 py-3 ml-auto">Next &rarr;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <footer class="py-12 text-center text-gray-600 text-sm">
+    &copy; 2025 Prolithica Technologies. CSR Initiative.
+  </footer>
+  
+  <div id="mesh-bg-page" class="fixed top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+    <canvas id="mesh-canvas" class="w-full h-full" style="display: block"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Reusing mesh background script -->
+  <script src="./scripts/mesh.js"></script> 
+  <!-- Custom script for CSR page logic -->
+  <script src="./scripts/csr.js"></script>
+
+</body>
+</html>
