@@ -78,9 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentStep = 1;
   };
   // Submit handler
-  document.getElementById("contact-multistep-form").onsubmit = function (
-    e
-  ) {
+  document.getElementById("contact-multistep-form").onsubmit = function (e) {
     e.preventDefault();
     const btn = this.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
@@ -91,12 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
     formData.append("_subject", "New Project Inquiry - Prolithica");
     formData.append("_template", "table");
 
-    fetch("https://formsubmit.co/ajax/ceo@prolithica.com", {
+    fetch("https://formsubmit.co/ajax/info@prolithica.com", {
       method: "POST",
-      body: formData
+      body: formData,
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         showStep(3);
         if (window.confetti) {
           confetti({
@@ -111,9 +109,11 @@ document.addEventListener("DOMContentLoaded", function () {
           btn.textContent = originalText;
         }, 6000);
       })
-      .catch(error => {
-        console.error('Error:', error);
-        alert("There was an error sending your message. Please try again later.");
+      .catch((error) => {
+        console.error("Error:", error);
+        alert(
+          "There was an error sending your message. Please try again later.",
+        );
         btn.textContent = originalText;
       });
   };
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Animated Mesh (wavy grid) background for the entire page
 const meshCanvas = document.getElementById("mesh-canvas");
 const meshCtx = meshCanvas.getContext("2d");
-console.log(meshCtx)
+console.log(meshCtx);
 function resizeMeshCanvas() {
   meshCanvas.width = window.innerWidth;
   meshCanvas.height = window.innerHeight;
