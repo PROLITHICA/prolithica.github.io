@@ -1632,3 +1632,49 @@ textarea::placeholder {
     column-gap: 12px;
   }
 }
+
+/* A quiet circular arrow marker shared by links, buttons, and process cues. */
+.arrow-circle {
+  display: inline-grid;
+  width: 30px;
+  height: 30px;
+  margin-inline: 5px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e2e3e4;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: middle;
+}
+.arrow-circle svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Scroll reveals fade back out as content leaves the viewport. */
+[data-scroll-fade] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+[data-scroll-fade].is-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-type-char {
+  opacity: clamp(0, calc(var(--type-progress, 1) * var(--char-count) - var(--char-index)), 1);
+  transition: opacity 65ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-fade] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .scroll-type-char {
+    opacity: 1;
+    transition: none;
+  }
+}

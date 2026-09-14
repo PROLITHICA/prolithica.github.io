@@ -1,4 +1,127 @@
 import { sendEnquiry } from "./enquiry.mjs";
+
+// Keep decorative arrows consistent, including button labels updated later by
+// the multi-step forms. The original text remains available to assistive tech.
+const arrowCharacters = new Set(["→", "↗", "↑", "↓", "←"]);
+
+function circleArrows(root = document) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest("script, style, svg, code, pre, textarea, .arrow-circle")) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return [...node.textContent].some((character) => arrowCharacters.has(character))
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    },
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const fragment = document.createDocumentFragment();
+    for (const part of node.textContent.split(/([→↗↑↓←])/)) {
+      if (arrowCharacters.has(part)) {
+        const badge = document.createElement("span");
+        badge.className = "arrow-circle";
+        badge.setAttribute("aria-hidden", "true");
+        badge.textContent = part;
+        fragment.append(badge);
+      } else {
+        fragment.append(document.createTextNode(part));
+      }
+    }
+    node.replaceWith(fragment);
+  }
+
+  root.querySelectorAll?.("a svg").forEach((icon) => {
+    if (icon.parentElement?.classList.contains("arrow-circle")) return;
+    const badge = document.createElement("span");
+    badge.className = "arrow-circle";
+    badge.setAttribute("aria-hidden", "true");
+    icon.parentNode.insertBefore(badge, icon);
+    badge.append(icon);
+  });
+}
+
+function installScrollMotion() {
+  circleArrows();
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const arrowObserver = new MutationObserver(() => circleArrows());
+    arrowObserver.observe(document.body, { childList: true, subtree: true });
+    return;
+  }
+
+  const installTargets = () => {
+    document.querySelectorAll(".section, .folder-card, .site-footer").forEach((element) => {
+      if (element.hasAttribute("data-scroll-fade")) return;
+      element.setAttribute("data-scroll-fade", "");
+      fadeObserver.observe(element);
+    });
+    document.querySelectorAll("h1, .section-heading h2").forEach(prepareTypewriter);
+  };
+
+  const fadeObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      entry.target.classList.toggle("is-in-view", entry.isIntersecting);
+    }
+  }, { threshold: 0.08 });
+
+  function prepareTypewriter(heading) {
+    if (heading.hasAttribute("data-scroll-typewriter")) return;
+    const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    let index = 0;
+    for (const textNode of textNodes) {
+      const fragment = document.createDocumentFragment();
+      for (const character of textNode.textContent) {
+        if (/\s/.test(character)) {
+          fragment.append(document.createTextNode(character));
+          continue;
+        }
+        const span = document.createElement("span");
+        span.className = "scroll-type-char";
+        span.style.setProperty("--char-index", index++);
+        span.textContent = character;
+        fragment.append(span);
+      }
+      textNode.replaceWith(fragment);
+    }
+    heading.style.setProperty("--char-count", Math.max(index, 1));
+    heading.setAttribute("data-scroll-typewriter", "");
+    typewriterTargets.push(heading);
+  }
+
+  const typewriterTargets = [];
+  let frame = 0;
+  const updateTypewriter = () => {
+    frame = 0;
+    const viewportHeight = window.innerHeight;
+    for (const heading of typewriterTargets) {
+      const rect = heading.getBoundingClientRect();
+      const start = viewportHeight * 0.9;
+      const finish = viewportHeight * 0.32;
+      const progress = Math.max(0, Math.min(1, (start - rect.top) / (rect.height + start - finish)));
+      heading.style.setProperty("--type-progress", progress.toFixed(3));
+    }
+  };
+  const scheduleTypewriter = () => {
+    if (!frame) frame = requestAnimationFrame(updateTypewriter);
+  };
+  const contentObserver = new MutationObserver((records) => {
+    circleArrows();
+    if (records.some((record) => record.addedNodes.length)) installTargets();
+  });
+
+  installTargets();
+  contentObserver.observe(document.body, { childList: true, subtree: true });
+  window.addEventListener("scroll", scheduleTypewriter, { passive: true });
+  window.addEventListener("resize", scheduleTypewriter, { passive: true });
+  scheduleTypewriter();
+}
+
+installScrollMotion();
 const toggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#mobile-menu");
 function closeMenu(returnFocus = false) {
