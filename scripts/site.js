@@ -90,25 +90,8 @@ function installScrollMotion() {
     }
     heading.style.setProperty("--char-count", Math.max(index, 1));
     heading.setAttribute("data-scroll-typewriter", "");
-    typewriterTargets.push(heading);
   }
 
-  const typewriterTargets = [];
-  let frame = 0;
-  const updateTypewriter = () => {
-    frame = 0;
-    const viewportHeight = window.innerHeight;
-    for (const heading of typewriterTargets) {
-      const rect = heading.getBoundingClientRect();
-      const start = viewportHeight * 0.9;
-      const finish = viewportHeight * 0.32;
-      const progress = Math.max(0, Math.min(1, (start - rect.top) / (rect.height + start - finish)));
-      heading.style.setProperty("--type-progress", progress.toFixed(3));
-    }
-  };
-  const scheduleTypewriter = () => {
-    if (!frame) frame = requestAnimationFrame(updateTypewriter);
-  };
   const contentObserver = new MutationObserver((records) => {
     circleArrows();
     if (records.some((record) => record.addedNodes.length)) installTargets();
@@ -116,9 +99,6 @@ function installScrollMotion() {
 
   installTargets();
   contentObserver.observe(document.body, { childList: true, subtree: true });
-  window.addEventListener("scroll", scheduleTypewriter, { passive: true });
-  window.addEventListener("resize", scheduleTypewriter, { passive: true });
-  scheduleTypewriter();
 }
 
 installScrollMotion();

@@ -1664,8 +1664,12 @@ textarea::placeholder {
   transform: translateY(0);
 }
 .scroll-type-char {
-  opacity: clamp(0, calc(var(--type-progress, 1) * var(--char-count) - var(--char-index)), 1);
-  transition: opacity 65ms linear;
+  animation: type-character 1ms step-end both;
+  animation-delay: calc(var(--char-index) * 22ms);
+}
+@keyframes type-character {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-scroll-fade] {
@@ -1674,6 +1678,7 @@ textarea::placeholder {
     transition: none;
   }
   .scroll-type-char {
+    animation: none;
     opacity: 1;
     transition: none;
   }
